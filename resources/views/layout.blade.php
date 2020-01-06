@@ -21,6 +21,11 @@
             border-top-left-radius: 0.5rem;
             border-bottom-left-radius: 0.5rem;
         }
+
+        .required:after {
+            content: "*";
+            color: red;
+        }
     </style>
 </head>
 <body>
