@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {
@@ -13,7 +14,13 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        $authorsAndBooks = DB::table('authors')
+            ->Join('books', 'books.author_id', '=', 'authors.id')
+            ->orderBy('authors.name')
+            ->simplePaginate(10);
+
+        return view('list', compact('authorsAndBooks'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -29,7 +36,7 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
