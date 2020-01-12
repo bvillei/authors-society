@@ -26,6 +26,15 @@
             content: "*";
             color: red;
         }
+
+        table {
+            empty-cells: show;
+        }
+
+        .author-data {
+            border-top: 2px solid #000;
+        }
+
     </style>
 </head>
 <body>

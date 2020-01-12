@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Author;
 use App\Book;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {
@@ -16,13 +15,9 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        $authorsAndBooks = DB::table('authors')
-            ->Join('books', 'books.author_id', '=', 'authors.id')
-            ->orderBy('authors.name')
-            ->simplePaginate(10);
+        $authorsAndBooks = Author::with('books')->orderBy('name')->get();
 
-        return view('list', compact('authorsAndBooks'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('list', ['authorsAndBooks' => $authorsAndBooks]);
     }
 
     /**

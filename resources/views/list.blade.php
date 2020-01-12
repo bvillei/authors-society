@@ -26,17 +26,22 @@
                 </thead>
                 <tbody>
                 @foreach($authorsAndBooks as $row)
-                    <tr>
+                    <tr class="author-data">
                         <td>{{ $row->name }}</td>
                         <td>{{ $row->birth_date }}</td>
                         <td>{{ $row->address }}</td>
-                        <td>{{ $row->title }}</td>
-                        <td>{{ $row->release_date }}</td>
+                        <td colspan="2"></td>
                     </tr>
+                    @foreach($row->books as $book)
+                        <tr >
+                            <td colspan="3"></td>
+                            <td>{{ $book->title }}</td>
+                            <td>{{ $book->release_date }}</td>
+                        </tr>
+                    @endforeach
                 @endforeach
                 </tbody>
             </table>
-            {!! $authorsAndBooks->links() !!}
         </div>
     </div>
 @endsection
